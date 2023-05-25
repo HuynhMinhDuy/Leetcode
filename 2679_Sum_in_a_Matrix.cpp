@@ -11,17 +11,13 @@ Return the final score.
 class Solution {
 public:
 
-    struct Comparator {
-        bool operator()(int a, int b) {
-            return a > b;  // Sort in descending order
-            }
-    };
-
     int matrixSum(vector<vector<int>>& nums) {
         int sum = 0;
         // Sorting each row in descending order
         for (auto& row : nums) {
-            sort(row.begin(), row.end(), Comparator());
+            sort(row.begin(), row.end(), [](int a, int b) {
+                return a > b;
+            });
         }
 
         for (int col = 0; col < nums[0].size(); ++col) {
