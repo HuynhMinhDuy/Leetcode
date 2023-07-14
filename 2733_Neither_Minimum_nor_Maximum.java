@@ -11,8 +11,8 @@ class Solution {
         int idxMin = 0;
         int idxMax = 0;
         int idx = 0;
-
-        for(int i = 0; i < nums.length; ++i) {
+        // Check 3 first number
+        for(int i = 0; i < 3; ++i) {
             if(nums[i] > nums[idxMax]) {
                 idx = idxMax;
                 idxMax = i;
