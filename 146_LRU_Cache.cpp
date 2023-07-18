@@ -23,7 +23,7 @@ public:
     }
     
     int get(int key) {        
-        if(cache.find(key)!=cache.end()) {
+        if(cache.find(key) != cache.end()) {
             dll.erase(cache[key].second);
             dll.push_back(key);
             cache[key].second = prev(dll.end());
@@ -33,15 +33,15 @@ public:
     }
     
     void put(int key, int value) {
-        if(cache.find(key)==cache.end()&&cache.size()==cap) {
+        if(cache.find(key) == cache.end() && cache.size() == cap) {
             cache.erase(*dll.begin());
             dll.erase(dll.begin());            
-        } else if (cache.find(key)!=cache.end()) {
+        } else if (cache.find(key) != cache.end()) {
             dll.erase(cache[key].second);
         }
 
         dll.push_back(key);
-        cache[key]= make_pair(value,prev(dll.end()));       
+        cache[key] = make_pair(value,prev(dll.end()));       
     }
 };
 
