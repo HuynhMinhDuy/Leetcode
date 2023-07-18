@@ -39,9 +39,8 @@ public:
         } else if (cache.find(key) != cache.end()) {
             dll.erase(cache[key].second);
         }
-
         dll.push_back(key);
-        cache[key] = make_pair(value,prev(dll.end()));       
+        cache[key] = make_pair(value, prev(dll.end()));       
     }
 };
 
