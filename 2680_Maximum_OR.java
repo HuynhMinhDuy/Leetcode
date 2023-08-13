@@ -9,20 +9,18 @@ Note that a | b denotes the bitwise or between two integers a and b.
 
 class Solution {
     public long maximumOr(int[] nums, int k) {
-        long[] prefix = new long[nums.length + 1];
+        long prefix = 0;
         long[] suffix = new long[nums.length + 1];        
         long ans = 0;
-        for(int i = 0; i < nums.length; ++i) {
-            prefix[i + 1] = prefix[i] | nums[i];
-        }
-
+       
         for(int i = nums.length - 1; i >=0; --i) {
             suffix[i] = suffix[i + 1] | nums[i];
         }
 
         for(int i = 0; i < nums.length; ++i){
             long num = (long)nums[i];
-            ans = Math.max(ans, num << k | prefix[i] | suffix[i + 1]);
+            ans = Math.max(ans, num << k | prefix | suffix[i + 1]);
+            prefix |= num;
         }
         
         return ans;
