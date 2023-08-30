@@ -11,15 +11,14 @@ class Solution {
         int currentMin = nums[nums.length - 1];
 
         for(int i = nums.length - 2; i >= 0; --i){
+            int k = nums[i] / currentMin;
             if (nums[i] % currentMin == 0) {
-                ans += nums[i] / currentMin - 1;
-            } else {
-                int k = nums[i] / currentMin + 1;
                 ans += k - 1;
-                currentMin = nums[i] / k;
+            } else {              
+                ans += k;
+                currentMin = nums[i] / (k + 1);
             }
         }
-
         return ans;
     }
 }
