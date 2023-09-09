@@ -13,12 +13,11 @@ class Solution {
         dp[0]  = 1;
         
         for(int coin : coins) {
-            for(int money = 1; money <= amount; ++money) {
-                if(money >= coin) {
-                    dp[money] += dp[money - coin];
-                }
+            for(int money = coin; money <= amount; ++money) {                
+                dp[money] += dp[money - coin];                
             }
         }
+
         return dp[amount];
     }
 }
