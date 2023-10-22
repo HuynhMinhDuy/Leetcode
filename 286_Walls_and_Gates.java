@@ -9,47 +9,40 @@ Fill each empty room with the distance to its nearest gate. If it is impossible 
 class Solution {
     public void wallsAndGates(int[][] rooms) {
 
+        Queue<int[]> q = new LinkedList<>();
+        int[][] directions = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
         for(int row = 0; row < rooms.length; ++row) {
             for(int col = 0; col < rooms[0].length; ++col) {
                 if(rooms[row][col] == 0) {
-                    BFS(rooms, row, col);
+                    q.add(new int[]{row, col});                    
                 }
             }
         }
-    }
-
-    public void BFS(int[][] rooms, int row, int col){
-
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{row, col});
 
         while(!q.isEmpty()) {
+            int sz = q.size();
 
-            int[] currentCell = q.poll();
-            int currentRow = currentCell[0];
-            int currentCol = currentCell[1];
+            for(int i = 0; i < sz; ++i) {
 
-            if(currentCol + 1 < rooms[0].length && rooms[currentRow][currentCol] + 1 < rooms[currentRow][currentCol + 1]) {
-                rooms[currentRow][currentCol + 1] = rooms[currentRow][currentCol] + 1;
-                q.add(new int[]{currentRow, currentCol + 1});
-            }
+                int[] currentCell = q.poll();
+                int currentRow = currentCell[0];
+                int currentCol = currentCell[1];
 
-            if(currentRow + 1 < rooms.length && rooms[currentRow][currentCol] + 1 < rooms[currentRow + 1][currentCol]) {
-                rooms[currentRow + 1][currentCol] = rooms[currentRow][currentCol] + 1;
-                q.add(new int[]{currentRow + 1, currentCol});
-            }
+                for(int[] direction : directions) {
+                    int newRow = currentRow + direction[0];
+                    int newCol = currentCol + direction[1];
 
-            if(currentCol - 1 >= 0 && rooms[currentRow][currentCol] + 1 < rooms[currentRow][currentCol - 1]) {
-                rooms[currentRow][currentCol - 1] = rooms[currentRow][currentCol] + 1;
-                q.add(new int[]{currentRow, currentCol - 1});
-            }
-
-            if(currentRow - 1 >= 0 && rooms[currentRow][currentCol] + 1 < rooms[currentRow - 1][currentCol]) {
-                rooms[currentRow - 1][currentCol] = rooms[currentRow][currentCol] + 1;
-                q.add(new int[]{currentRow - 1, currentCol});
+                    if(newRow >= 0 && newRow < rooms.length && newCol >= 0 && newCol < rooms[0].length && rooms[currentRow][currentCol] + 1 < rooms[newRow][newCol]) {
+                            rooms[newRow][newCol] = rooms[currentRow][currentCol] + 1;
+                            q.add(new int[]{newRow, newCol});
+                    }
+                }
             }
         }
-    }
-}
 
+    }
+    
+    
+}
  
